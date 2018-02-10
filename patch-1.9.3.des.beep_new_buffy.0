@@ -15,7 +15,7 @@ index e69de29b..f436cd35 100644
 --- PATCHES
 +++ PATCHES
 @@ -0,0 +1 @@
-+patch-1.9.3.des.beep_new_buffy.1
++patch-1.9.3.des.beep_new_buffy.0
 diff --git curs_main.c curs_main.c
 index 1a1279e9..edd8e6f9 100644
 --- curs_main.c
