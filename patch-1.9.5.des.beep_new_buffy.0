@@ -1,0 +1,68 @@
+From d84636e4025581a36e21ef830d6b46b0ae8738bc Mon Sep 17 00:00:00 2001
+From: Derek Schrock <dereks@lifeofadishwasher.com>
+Date: Sat, 14 Apr 2018 18:23:05 -0400
+Subject: [PATCH] Apply beep_new_buffy
+
+---
+ PATCHES     |  1 +
+ curs_main.c |  2 +-
+ init.h      | 11 +++++++++--
+ mutt.h      |  1 +
+ 4 files changed, 12 insertions(+), 3 deletions(-)
+
+diff --git PATCHES PATCHES
+index e69de29b..3fb76ea8 100644
+--- PATCHES
++++ PATCHES
+@@ -0,0 +1 @@
++patch-1.9.5.des.beep_new_buffy.0
+diff --git curs_main.c curs_main.c
+index 1a1279e9..edd8e6f9 100644
+--- curs_main.c
++++ curs_main.c
+@@ -660,7 +660,7 @@ int mutt_index_menu (void)
+        if (mutt_buffy_notify())
+        {
+          menu->redraw |= REDRAW_STATUS;
+-         if (option (OPTBEEPNEW))
++         if (option (OPTBEEPNEWBUFFY))
+            beep();
+        }
+      }
+diff --git init.h init.h
+index 035752f6..977be5ac 100644
+--- init.h
++++ init.h
+@@ -314,8 +314,15 @@ struct option_t MuttVars[] = {
+   /*
+   ** .pp
+   ** When this variable is \fIset\fP, mutt will beep whenever it prints a message
+-  ** notifying you of new mail.  This is independent of the setting of the
+-  ** $$beep variable.
++  ** notifying you of new mail from the currently open mailbox.  This is independent
++  ** of the setting of the $$beep variable.
++  */
++  { "beep_new_buffy",	DT_BOOL, R_NONE, OPTBEEPNEWBUFFY, 0 },
++  /*
++  ** .pp
++  ** When this variable is \fIset\fP, mutt will beep whenever it prints a message
++  ** notifying you of new mail from a buffy mailbox (see ``$mailboxes'').  This is
++  ** independent of the setting of the $$beep variable.
+   */
+   { "bounce",	DT_QUAD, R_NONE, OPT_BOUNCE, MUTT_ASKYES },
+   /*
+diff --git mutt.h mutt.h
+index 54a807fa..eac681c3 100644
+--- mutt.h
++++ mutt.h
+@@ -340,6 +340,7 @@ enum
+   OPTAUTOTAG,
+   OPTBEEP,
+   OPTBEEPNEW,
++  OPTBEEPNEWBUFFY,
+   OPTBOUNCEDELIVERED,
+   OPTBRAILLEFRIENDLY,
+   OPTCHECKMBOXSIZE,
+-- 
+2.17.0
+
