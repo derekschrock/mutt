@@ -15,7 +15,7 @@ index e69de29b..9784890a 100644
 --- PATCHES
 +++ PATCHES
 @@ -0,0 +1 @@
-+patch-1.11.2.des.sort_browser-new.0
++patch-1.11.3.des.sort_browser-new.0
 diff --git browser.c browser.c
 index c7e58b68..aabcf75b 100644
 --- browser.c
