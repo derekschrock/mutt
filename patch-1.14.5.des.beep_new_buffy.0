@@ -1,0 +1,68 @@
+From ec6b5582404dd1c72be1f6a7b511765dfcfe96a9 Mon Sep 17 00:00:00 2001
+From: Derek Schrock <dereks@lifeofadishwasher.com>
+Date: Thu, 25 Jun 2020 19:20:01 -0400
+Subject: [PATCH] beep_new_buffy 1.14.5
+
+---
+ PATCHES     |  1 +
+ curs_main.c |  2 +-
+ init.h      | 11 +++++++++--
+ mutt.h      |  1 +
+ 4 files changed, 12 insertions(+), 3 deletions(-)
+
+diff --git PATCHES PATCHES
+index e69de29b..7bb24bf5 100644
+--- PATCHES
++++ PATCHES
+@@ -0,0 +1 @@
++patch-1.14.5.des.beep_new_buffy.0
+diff --git curs_main.c curs_main.c
+index b1891354..e3e55ee2 100644
+--- curs_main.c
++++ curs_main.c
+@@ -732,7 +732,7 @@ int mutt_index_menu (void)
+         if (mutt_buffy_notify())
+         {
+           menu->redraw |= REDRAW_STATUS;
+-          if (option (OPTBEEPNEW))
++          if (option (OPTBEEPNEWBUFFY))
+             beep();
+           if (NewMailCmd)
+           {
+diff --git init.h init.h
+index 6cbc30a3..20502f4d 100644
+--- init.h
++++ init.h
+@@ -422,8 +422,15 @@ struct option_t MuttVars[] = {
+   /*
+   ** .pp
+   ** When this variable is \fIset\fP, mutt will beep whenever it prints a message
+-  ** notifying you of new mail.  This is independent of the setting of the
+-  ** $$beep variable.
++  ** notifying you of new mail from the currently open mailbox.  This is independent
++  ** of the setting of the $$beep variable.
++  */
++  { "beep_new_buffy",	DT_BOOL, R_NONE, {.l=OPTBEEPNEWBUFFY}, {.l=0} },
++  /*
++  ** .pp
++  ** When this variable is \fIset\fP, mutt will beep whenever it prints a message
++  ** notifying you of new mail from a buffy mailbox (see ``$mailboxes'').  This is
++  ** independent of the setting of the $$beep variable.
+   */
+   { "bounce",	DT_QUAD, R_NONE, {.l=OPT_BOUNCE}, {.l=MUTT_ASKYES} },
+   /*
+diff --git mutt.h mutt.h
+index 4413739f..d89e42f9 100644
+--- mutt.h
++++ mutt.h
+@@ -393,6 +393,7 @@ enum
+   OPTBACKGROUNDEDIT,
+   OPTBACKGROUNDCONFIRMQUIT,
+   OPTBEEPNEW,
++  OPTBEEPNEWBUFFY,
+   OPTBOUNCEDELIVERED,
+   OPTCHANGEFOLDERNEXT,
+   OPTBRAILLEFRIENDLY,
+-- 
+2.27.0
+
