@@ -1,0 +1,68 @@
+From d4a4519127c128fe37acb6662dfced39c1af2348 Mon Sep 17 00:00:00 2001
+From: Derek Schrock <dereks@lifeofadishwasher.com>
+Date: Sun, 8 Nov 2020 16:40:18 -0500
+Subject: [PATCH] 2.0.0 beep_new_buffy
+
+---
+ PATCHES     |  1 +
+ curs_main.c |  2 +-
+ init.h      | 11 +++++++++--
+ mutt.h      |  1 +
+ 4 files changed, 12 insertions(+), 3 deletions(-)
+
+diff --git PATCHES PATCHES
+index e69de29b..52cd17bb 100644
+--- PATCHES
++++ PATCHES
+@@ -0,0 +1 @@
++patch-2.0.0.des.beep_new_buffy.0
+diff --git curs_main.c curs_main.c
+index 19427025..a0575950 100644
+--- curs_main.c
++++ curs_main.c
+@@ -745,7 +745,7 @@ int mutt_index_menu (void)
+         if (mutt_buffy_notify())
+         {
+           menu->redraw |= REDRAW_STATUS;
+-          if (option (OPTBEEPNEW))
++          if (option (OPTBEEPNEWBUFFY))
+             beep();
+           if (NewMailCmd)
+           {
+diff --git init.h init.h
+index 31c2ae41..5e824d88 100644
+--- init.h
++++ init.h
+@@ -437,8 +437,15 @@ struct option_t MuttVars[] = {
+   /*
+   ** .pp
+   ** When this variable is \fIset\fP, mutt will beep whenever it prints a message
+-  ** notifying you of new mail.  This is independent of the setting of the
+-  ** $$beep variable.
++  ** notifying you of new mail from the currently open mailbox.  This is independent
++  ** of the setting of the $$beep variable.
++  */
++  { "beep_new_buffy",	DT_BOOL, R_NONE, {.l=OPTBEEPNEWBUFFY}, {.l=0} },
++  /*
++  ** .pp
++  ** When this variable is \fIset\fP, mutt will beep whenever it prints a message
++  ** notifying you of new mail from a buffy mailbox (see ``$mailboxes'').  This is
++  ** independent of the setting of the $$beep variable.
+   */
+   { "bounce",	DT_QUAD, R_NONE, {.l=OPT_BOUNCE}, {.l=MUTT_ASKYES} },
+   /*
+diff --git mutt.h mutt.h
+index 8f45e67f..e7672698 100644
+--- mutt.h
++++ mutt.h
+@@ -397,6 +397,7 @@ enum
+   OPTBACKGROUNDEDIT,
+   OPTBACKGROUNDCONFIRMQUIT,
+   OPTBEEPNEW,
++  OPTBEEPNEWBUFFY,
+   OPTBOUNCEDELIVERED,
+   OPTCHANGEFOLDERNEXT,
+   OPTBRAILLEFRIENDLY,
+-- 
+2.28.0
+
