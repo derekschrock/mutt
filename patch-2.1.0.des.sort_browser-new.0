@@ -67,7 +67,7 @@ index 060eee36..0f959759 100644
        break;
  
 +    case 7: /* (N)ew */
-+      BrowserSort = SORT_NEW;
++      new_sort = SORT_NEW;
 +      break;
 +
      case -1: /* abort */
