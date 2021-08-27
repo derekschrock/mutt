@@ -1,13 +1,14 @@
-From 7262709f7d0048646026a337631a06225a62c175 Mon Sep 17 00:00:00 2001
+From fab4685e54948365e68316e6b2a6ddddd77425ef Mon Sep 17 00:00:00 2001
 From: Derek Schrock <dereks@lifeofadishwasher.com>
-Date: Thu, 26 Aug 2021 20:34:51 -0400
+Date: Mon, 14 Jun 2021 17:01:40 -0400
 Subject: [PATCH] 2.1.2 sort_browser-new
 
 ---
  PATCHES   |  1 +
  browser.c | 25 ++++++++++++++++++++++---
  init.h    |  2 ++
- 3 files changed, 25 insertions(+), 3 deletions(-)
+ sort.h    |  1 +
+ 4 files changed, 26 insertions(+), 3 deletions(-)
 
 diff --git PATCHES PATCHES
 index e69de29b..247f3794 100644
@@ -92,6 +93,18 @@ index acc7d8b2..5ff65d74 100644
    ** .dd spam
    ** .dd subject
    ** .dd threads
+diff --git sort.h sort.h
+index 4a810ae1..d1173933 100644
+--- sort.h
++++ sort.h
+@@ -36,6 +36,7 @@
+ #define SORT_PATH	18
+ #define SORT_LABEL	19
+ #define SORT_UID        20  /* used internally by the IMAP code */
++#define SORT_NEW	99
+ 
+ /* Sort and sort_aux are shorts, and are a composite of a
+  * constant sort operation number and a set of compounded
 -- 
 2.32.0
 
