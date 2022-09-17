@@ -1,0 +1,110 @@
+From 30a0d63f1432ac8d5708b1307a2b826f9e29ab68 Mon Sep 17 00:00:00 2001
+From: Derek Schrock <dereks@lifeofadishwasher.com>
+Date: Sat, 17 Sep 2022 19:27:32 -0400
+Subject: [PATCH] 2.2.7 sort_browser-new
+
+---
+ PATCHES   |  1 +
+ browser.c | 25 ++++++++++++++++++++++---
+ init.h    |  2 ++
+ sort.h    |  1 +
+ 4 files changed, 26 insertions(+), 3 deletions(-)
+
+diff --git a/PATCHES b/PATCHES
+index e69de29b..9a73375e 100644
+--- a/PATCHES
++++ b/PATCHES
+@@ -0,0 +1 @@
++patch-2.2.7.des.sort_browser-new.0
+diff --git a/browser.c b/browser.c
+index 4f365ebd..3df901c7 100644
+--- a/browser.c
++++ b/browser.c
+@@ -114,6 +114,18 @@ static int browser_compare_date (const void *a, const void *b)
+   return (sort_reverse_flag ? -r : r);
+ }
+ 
++static int browser_compare_new (const void *a, const void *b)
++{
++  struct folder_file *pa = (struct folder_file *) a;
++  struct folder_file *pb = (struct folder_file *) b;
++  int r = 0;
++
++  r = pa->new - pb->new;
++
++  return (sort_reverse_flag ? -r : r);
++}
++
++
+ static int browser_compare_size (const void *a, const void *b)
+ {
+   struct folder_file *pa = (struct folder_file *) a;
+@@ -157,6 +169,9 @@ static void browser_sort (struct browser_state *state)
+     case SORT_ORDER:
+       f = browser_compare_order;
+       break;
++    case SORT_NEW:
++      f = browser_compare_new;
++      break;
+     case SORT_DATE:
+       f = browser_compare_date;
+       break;
+@@ -212,9 +227,9 @@ static int select_sort (struct browser_state *state, int reverse)
+   int new_sort;
+ 
+   switch (mutt_multi_choice ((reverse) ?
+-           _("Reverse sort by (d)ate, (a)lpha, si(z)e, (c)ount, (u)nread, or do(n)'t sort? ") :
+-           _("Sort by (d)ate, (a)lpha, si(z)e, (c)ount, (u)nread, or do(n)'t sort? "),
+-           _("dazcun")))
++           _("Reverse sort by (d)ate, (a)lpha, si(z)e, (N)ew (c)ount, (u)nread, or do(n)'t sort? ") :
++           _("Sort by (d)ate, (a)lpha, si(z)e, (N)ew, (c)ount, (u)nread, or do(n)'t sort? "),
++           _("dazcunN")))
+   {
+     case 1: /* (d)ate */
+       new_sort = SORT_DATE;
+@@ -240,6 +255,10 @@ static int select_sort (struct browser_state *state, int reverse)
+       new_sort = SORT_ORDER;
+       break;
+ 
++    case 7: /* (N)ew */
++      new_sort = SORT_NEW;
++      break;
++
+     case -1: /* abort */
+     default:
+       resort = 0;
+diff --git a/init.h b/init.h
+index 08283eb1..0d4011bd 100644
+--- a/init.h
++++ b/init.h
+@@ -155,6 +155,7 @@ const struct mapping_t SortBrowserMethods[] = {  /* DT_SORT_BROWSER */
+   { "size",	SORT_SIZE },
+   { "alpha",	SORT_SUBJECT },
+   { "unread",	SORT_UNREAD },
++  { "new", SORT_NEW },
+   { NULL,       0 }
+ };
+ 
+@@ -4162,6 +4163,7 @@ struct option_t MuttVars[] = {
+   ** .dd mailbox-order (unsorted)
+   ** .dd score
+   ** .dd size
++  ** .dd new
+   ** .dd spam
+   ** .dd subject
+   ** .dd threads
+diff --git a/sort.h b/sort.h
+index a5eca59a..97dbd28e 100644
+--- a/sort.h
++++ b/sort.h
+@@ -37,6 +37,7 @@
+ #define SORT_LABEL	19
+ #define SORT_AUX        20  /* $sort_thread_groups delegation to $sort_aux */
+ #define SORT_UID        21  /* used internally by the IMAP code */
++#define SORT_NEW	99
+ 
+ /* Sort and sort_aux are shorts, and are a composite of a
+  * constant sort operation number and a set of compounded
+-- 
+2.37.3
+
