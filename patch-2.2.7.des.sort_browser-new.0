@@ -10,16 +10,16 @@ Subject: [PATCH] 2.2.7 sort_browser-new
  sort.h    |  1 +
  4 files changed, 26 insertions(+), 3 deletions(-)
 
-diff --git a/PATCHES b/PATCHES
+diff --git PATCHES PATCHES
 index e69de29b..9a73375e 100644
---- a/PATCHES
-+++ b/PATCHES
+--- PATCHES
++++ PATCHES
 @@ -0,0 +1 @@
 +patch-2.2.7.des.sort_browser-new.0
-diff --git a/browser.c b/browser.c
+diff --git browser.c browser.c
 index 4f365ebd..3df901c7 100644
---- a/browser.c
-+++ b/browser.c
+--- browser.c
++++ browser.c
 @@ -114,6 +114,18 @@ static int browser_compare_date (const void *a, const void *b)
    return (sort_reverse_flag ? -r : r);
  }
@@ -73,10 +73,10 @@ index 4f365ebd..3df901c7 100644
      case -1: /* abort */
      default:
        resort = 0;
-diff --git a/init.h b/init.h
+diff --git init.h init.h
 index 08283eb1..0d4011bd 100644
---- a/init.h
-+++ b/init.h
+--- init.h
++++ init.h
 @@ -155,6 +155,7 @@ const struct mapping_t SortBrowserMethods[] = {  /* DT_SORT_BROWSER */
    { "size",	SORT_SIZE },
    { "alpha",	SORT_SUBJECT },
@@ -93,10 +93,10 @@ index 08283eb1..0d4011bd 100644
    ** .dd spam
    ** .dd subject
    ** .dd threads
-diff --git a/sort.h b/sort.h
+diff --git sort.h sort.h
 index a5eca59a..97dbd28e 100644
---- a/sort.h
-+++ b/sort.h
+--- sort.h
++++ sort.h
 @@ -37,6 +37,7 @@
  #define SORT_LABEL	19
  #define SORT_AUX        20  /* $sort_thread_groups delegation to $sort_aux */
